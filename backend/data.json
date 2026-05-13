@@ -1,0 +1,522 @@
+{
+  "users": [
+    {
+      "id": "user-1",
+      "name": "Demo User",
+      "email": "demo@skillsswap.app",
+      "password": "demo123",
+      "headline": "Product Designer & Mentor",
+      "bio": "I mentor early builders in UX strategy, design systems, and storytelling.",
+      "country": "India",
+      "skillsOffered": [
+        "Design Systems",
+        "UX Research",
+        "Mobile UI"
+      ],
+      "skillsToLearn": [
+        "Advanced System Design",
+        "Growth Marketing"
+      ]
+    }
+  ],
+  "categories": [
+    "Design",
+    "Development",
+    "Marketing",
+    "Business",
+    "Language"
+  ],
+  "discoveryCards": [
+    {
+      "id": "card-1",
+      "name": "Elena Torres",
+      "persona": "teacher",
+      "title": "Senior Product Designer",
+      "skill": "Design Systems",
+      "category": "Design",
+      "country": "Spain",
+      "rating": 4.9,
+      "bio": "Helps teams build clean interfaces with scalable systems.",
+      "nextSessionSlots": [
+        "Today 18:00",
+        "Tomorrow 10:30",
+        "Sat 15:00"
+      ],
+      "connected": false,
+      "favorited": true
+    },
+    {
+      "id": "card-2",
+      "name": "Arjun Mehta",
+      "persona": "teacher",
+      "title": "Software Architect",
+      "skill": "System Design",
+      "category": "Development",
+      "country": "India",
+      "rating": 4.8,
+      "bio": "Teaches scalable backend design and cloud-first architecture.",
+      "nextSessionSlots": [
+        "Today 21:00",
+        "Fri 20:30",
+        "Sun 11:00"
+      ],
+      "connected": false,
+      "favorited": true
+    },
+    {
+      "id": "card-3",
+      "name": "Sofia Park",
+      "persona": "learner",
+      "title": "Growth Marketer",
+      "skill": "Performance Marketing",
+      "category": "Marketing",
+      "country": "South Korea",
+      "rating": 4.7,
+      "bio": "Looking to swap growth playbooks for mobile animation guidance.",
+      "nextSessionSlots": [
+        "Today 16:00",
+        "Tomorrow 19:00"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-4",
+      "name": "Lucas Nguyen",
+      "persona": "learner",
+      "title": "Founder",
+      "skill": "Pitch Storytelling",
+      "category": "Business",
+      "country": "Vietnam",
+      "rating": 4.6,
+      "bio": "Wants to improve investor storytelling and can teach GTM basics.",
+      "nextSessionSlots": [
+        "Fri 13:00",
+        "Sun 18:30"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-5",
+      "name": "Fatima Noor",
+      "persona": "teacher",
+      "title": "Language Coach",
+      "skill": "Business English",
+      "category": "Language",
+      "country": "UAE",
+      "rating": 4.9,
+      "bio": "Helps professionals improve communication for interviews and leadership.",
+      "nextSessionSlots": [
+        "Today 20:00",
+        "Thu 09:00",
+        "Sat 14:30"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-6",
+      "name": "Diego Alvarez",
+      "persona": "teacher",
+      "title": "Startup Advisor",
+      "skill": "Go-To-Market Strategy",
+      "category": "Business",
+      "country": "Mexico",
+      "rating": 4.8,
+      "bio": "Supports founders with launch plans, positioning, and pricing strategy.",
+      "nextSessionSlots": [
+        "Fri 17:00",
+        "Sun 12:00"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-7",
+      "name": "Nora Ibrahim",
+      "persona": "learner",
+      "title": "Frontend Engineer",
+      "skill": "React Native Animations",
+      "category": "Development",
+      "country": "Egypt",
+      "rating": 4.7,
+      "bio": "Looking for animation mentors and can teach component architecture.",
+      "nextSessionSlots": [
+        "Today 19:30",
+        "Mon 11:30"
+      ],
+      "connected": true,
+      "favorited": false
+    },
+    {
+      "id": "card-8",
+      "name": "Yuki Sato",
+      "persona": "learner",
+      "title": "Marketing Lead",
+      "skill": "Brand Storytelling",
+      "category": "Marketing",
+      "country": "Japan",
+      "rating": 4.8,
+      "bio": "Wants to improve product storytelling and can exchange campaign analytics workflows.",
+      "nextSessionSlots": [
+        "Sat 10:00",
+        "Sun 19:00"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-9",
+      "name": "Priya Nair",
+      "persona": "teacher",
+      "title": "Product Design Lead",
+      "skill": "UX Strategy",
+      "category": "Design",
+      "country": "India",
+      "rating": 4.9,
+      "bio": "Helps early teams shape product vision, journeys, and conversion-focused UX.",
+      "nextSessionSlots": [
+        "Today 18:30",
+        "Fri 11:00",
+        "Sun 16:00"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-10",
+      "name": "Rohan Kulkarni",
+      "persona": "teacher",
+      "title": "Senior Backend Engineer",
+      "skill": "Node.js Performance",
+      "category": "Development",
+      "country": "India",
+      "rating": 4.8,
+      "bio": "Guides developers on scaling APIs, profiling bottlenecks, and cloud deployment best practices.",
+      "nextSessionSlots": [
+        "Thu 20:00",
+        "Sat 10:00"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-11",
+      "name": "Aisha Khan",
+      "persona": "learner",
+      "title": "Brand Associate",
+      "skill": "Story-led Marketing",
+      "category": "Marketing",
+      "country": "India",
+      "rating": 4.7,
+      "bio": "Exploring advanced marketing storytelling and can exchange campaign execution workflows.",
+      "nextSessionSlots": [
+        "Today 19:30",
+        "Sat 12:30"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-12",
+      "name": "Vikram Joshi",
+      "persona": "teacher",
+      "title": "Startup Finance Mentor",
+      "skill": "Founder Finance Basics",
+      "category": "Business",
+      "country": "India",
+      "rating": 4.8,
+      "bio": "Supports founders on budgeting, runway planning, and investor-ready financial storytelling.",
+      "nextSessionSlots": [
+        "Fri 17:30",
+        "Sun 10:30"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-13",
+      "name": "Neha Bansal",
+      "persona": "teacher",
+      "title": "Communication Coach",
+      "skill": "Interview Communication",
+      "category": "Language",
+      "country": "India",
+      "rating": 4.9,
+      "bio": "Coaches confident speaking for interviews, leadership conversations, and client communication.",
+      "nextSessionSlots": [
+        "Today 21:00",
+        "Mon 09:00"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-14",
+      "name": "Karan Malhotra",
+      "persona": "learner",
+      "title": "Mobile Engineer",
+      "skill": "Motion UI",
+      "category": "Development",
+      "country": "India",
+      "rating": 4.7,
+      "bio": "Learning product-level motion systems and can exchange React Native architecture guidance.",
+      "nextSessionSlots": [
+        "Fri 19:00",
+        "Sun 15:00"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-15",
+      "name": "Maya Chen",
+      "persona": "teacher",
+      "title": "Product Growth Advisor",
+      "skill": "Retention Strategy",
+      "category": "Marketing",
+      "country": "Singapore",
+      "rating": 4.9,
+      "bio": "Helps product teams improve retention loops, lifecycle messaging, and onboarding conversion.",
+      "nextSessionSlots": [
+        "Today 17:30",
+        "Fri 14:00",
+        "Sun 09:30"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-16",
+      "name": "Omar Hassan",
+      "persona": "teacher",
+      "title": "Mobile Engineering Lead",
+      "skill": "React Native Performance",
+      "category": "Development",
+      "country": "Egypt",
+      "rating": 4.8,
+      "bio": "Teaches smooth mobile performance, render optimization, and release readiness for production apps.",
+      "nextSessionSlots": [
+        "Thu 18:00",
+        "Sat 11:30"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-17",
+      "name": "Lucia Romano",
+      "persona": "learner",
+      "title": "Visual Designer",
+      "skill": "Premium Mobile UI",
+      "category": "Design",
+      "country": "Italy",
+      "rating": 4.7,
+      "bio": "Looking to sharpen premium app UI craft and can exchange visual systems and art direction feedback.",
+      "nextSessionSlots": [
+        "Today 18:45",
+        "Sun 17:00"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-18",
+      "name": "Ethan Brooks",
+      "persona": "teacher",
+      "title": "Founder Coach",
+      "skill": "Pitch Narratives",
+      "category": "Business",
+      "country": "United States",
+      "rating": 4.8,
+      "bio": "Supports founders in turning traction, product insight, and market timing into sharper investor narratives.",
+      "nextSessionSlots": [
+        "Fri 22:00",
+        "Mon 08:00"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-19",
+      "name": "Sara Ahmed",
+      "persona": "learner",
+      "title": "Customer Success Lead",
+      "skill": "Executive Communication",
+      "category": "Language",
+      "country": "UAE",
+      "rating": 4.6,
+      "bio": "Improving executive communication and can exchange customer onboarding and support workflow expertise.",
+      "nextSessionSlots": [
+        "Sat 16:00",
+        "Mon 19:00"
+      ],
+      "connected": false,
+      "favorited": false
+    },
+    {
+      "id": "card-20",
+      "name": "Daniel Kim",
+      "persona": "teacher",
+      "title": "Product Manager",
+      "skill": "Roadmap Prioritization",
+      "category": "Business",
+      "country": "Canada",
+      "rating": 4.8,
+      "bio": "Helps teams prioritize mobile roadmaps using user evidence, impact framing, and clear execution sequencing.",
+      "nextSessionSlots": [
+        "Today 20:30",
+        "Sun 13:00"
+      ],
+      "connected": false,
+      "favorited": false
+    }
+  ],
+  "sessions": [
+    {
+      "id": "session-seed-1",
+      "cardId": "card-2",
+      "with": "Arjun Mehta",
+      "skill": "System Design",
+      "time": "Fri 20:30",
+      "status": "completed",
+      "createdAt": "2026-04-21T09:12:00.000Z",
+      "calendarUrl": "/api/sessions/session-seed-1/calendar"
+    },
+    {
+      "id": "session-seed-2",
+      "cardId": "card-5",
+      "with": "Fatima Noor",
+      "skill": "Business English",
+      "time": "Sat 14:30",
+      "status": "live",
+      "createdAt": "2026-04-22T12:22:00.000Z",
+      "calendarUrl": "/api/sessions/session-seed-2/calendar"
+    }
+  ],
+  "events": [
+    {
+      "id": "event-1",
+      "title": "7-Day Micro Teaching Challenge",
+      "description": "Teach one concept daily in under 5 minutes.",
+      "participants": 128,
+      "joined": false
+    },
+    {
+      "id": "event-2",
+      "title": "Global SkillSwap Demo Day",
+      "description": "Present your learning wins and exchange practical feedback.",
+      "participants": 86,
+      "joined": false
+    },
+    {
+      "id": "event-3",
+      "title": "Mobile UI Premium Sprint",
+      "description": "Build one polished mobile screen each day with peer reviews.",
+      "participants": 212,
+      "joined": false
+    },
+    {
+      "id": "event-4",
+      "title": "Mentor Match Week",
+      "description": "Get matched with a global mentor for one focused growth goal.",
+      "participants": 174,
+      "joined": false
+    }
+  ],
+  "learningPlan": {
+    "profileCompleted": true,
+    "firstSessionBooked": false,
+    "challengeJoined": false,
+    "skillsTarget": 4,
+    "skillsCompleted": 1
+  },
+  "messages": {
+    "unreadCount": 0
+  },
+  "notifications": [
+    {
+      "id": "n-1776972445994",
+      "title": "Saved profile",
+      "detail": "Vikram Joshi was added to your favorites list.",
+      "createdAt": "2026-04-23T19:27:25.994Z",
+      "read": false
+    },
+    {
+      "id": "n-1776972216246",
+      "title": "New connection",
+      "detail": "You connected with Nora Ibrahim for React Native Animations.",
+      "createdAt": "2026-04-23T19:23:36.246Z",
+      "read": false
+    },
+    {
+      "id": "n-1776972214828",
+      "title": "New connection",
+      "detail": "You connected with Nora Ibrahim for React Native Animations.",
+      "createdAt": "2026-04-23T19:23:34.828Z",
+      "read": false
+    },
+    {
+      "id": "n-1776966331106",
+      "title": "Session status updated",
+      "detail": "System Design with Arjun Mehta is now completed.",
+      "createdAt": "2026-04-23T17:45:31.106Z",
+      "read": false
+    },
+    {
+      "id": "n-1776966171294",
+      "title": "Saved profile",
+      "detail": "Elena Torres was added to your favorites list.",
+      "createdAt": "2026-04-23T17:42:51.294Z",
+      "read": false
+    },
+    {
+      "id": "n1",
+      "title": "New mentor recommendation",
+      "detail": "Arjun Mehta matches your learning goal in system design.",
+      "createdAt": "2026-04-23T10:30:00.000Z",
+      "read": false
+    },
+    {
+      "id": "n2",
+      "title": "Session reminder",
+      "detail": "Business English session starts tomorrow at 14:30.",
+      "createdAt": "2026-04-23T08:15:00.000Z",
+      "read": false
+    },
+    {
+      "id": "n3",
+      "title": "Community badge unlocked",
+      "detail": "You reached 3 meaningful community interactions.",
+      "createdAt": "2026-04-22T19:40:00.000Z",
+      "read": true
+    }
+  ],
+  "messageThreads": [
+    {
+      "id": "t1",
+      "participant": "Elena Torres",
+      "topic": "Design Systems Mentorship",
+      "unread": 0,
+      "lastMessage": "Share your onboarding screen and I will annotate improvements.",
+      "lastAt": "2026-04-23T11:05:00.000Z"
+    },
+    {
+      "id": "t2",
+      "participant": "Fatima Noor",
+      "topic": "Business English Session",
+      "unread": 0,
+      "lastMessage": "Perfect, let us focus on interview storytelling in our next call.",
+      "lastAt": "2026-04-22T16:20:00.000Z"
+    },
+    {
+      "id": "t3",
+      "participant": "Nora Ibrahim",
+      "topic": "Animation Knowledge Swap",
+      "unread": 0,
+      "lastMessage": "Can we exchange references for micro-interaction patterns?",
+      "lastAt": "2026-04-23T09:55:00.000Z"
+    }
+  ]
+}
