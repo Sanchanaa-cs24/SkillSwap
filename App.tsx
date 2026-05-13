@@ -34,21 +34,21 @@ const tabs: Tab[] = ['Discover', 'Sessions', 'Community', 'Progress', 'Profile']
 const personas = ['All', 'teacher', 'learner'] as const;
 const TOKEN_KEY = 'skillsswap_token';
 const palette = {
-  bg: '#07110d',
-  bgSoft: '#0b1712',
-  surface: '#0f1b16',
-  surfaceMuted: '#13211b',
-  surfaceAlt: '#16271f',
-  line: '#20352b',
-  lineStrong: '#2b4639',
-  text: '#edf5f0',
-  textMuted: '#a4bbb0',
-  textSoft: '#789084',
-  accent: '#3e6b58',
-  accentSoft: '#153126',
-  accentStrong: '#8eb79f',
-  accentAlt: '#1f3d31',
-  shadow: 'rgba(0, 0, 0, 0.28)',
+  bg: '#050505',
+  bgSoft: '#0b0b0b',
+  surface: '#101010',
+  surfaceMuted: '#141414',
+  surfaceAlt: '#1a1a1a',
+  line: '#272727',
+  lineStrong: '#3a3a3a',
+  text: '#f7f7f7',
+  textMuted: '#b4b4b4',
+  textSoft: '#7e7e7e',
+  accent: '#f3f3f3',
+  accentSoft: '#1f1f1f',
+  accentStrong: '#ffffff',
+  accentAlt: '#171717',
+  shadow: 'rgba(0, 0, 0, 0.42)',
 };
 
 const local = (globalThis as { localStorage?: Storage }).localStorage;
@@ -523,60 +523,16 @@ export default function App() {
   );
 
   const renderLanding = () => (
-    isPhone ? (
-      <SafeAreaView style={styles.safe}>
-        <StatusBar style="light" />
-        <ScrollView contentContainerStyle={[styles.landingScroll, styles.landingScrollPhone]}>
-          <LinearGradient colors={['#0d1814', '#10211a', '#153126']} style={[styles.landingHero, styles.landingHeroPhone]}>
-            <View style={styles.landingCopyPhone}>
-              <Text style={styles.eyebrow}>PRIVATE SKILL EXCHANGE</Text>
-              <Text style={[styles.landingTitle, styles.landingTitlePhone]}>
-                Learn together in a calmer, cleaner space.
-              </Text>
-              <Text style={styles.landingBody}>
-                Discover people, book sessions, and keep momentum in one simple mobile flow.
-              </Text>
-              <Pressable
-                style={({ pressed }) => [styles.heroButton, pressed && styles.pressedScale]}
-                onPress={onAuth}
-              >
-                <Text style={styles.heroButtonText}>
-                  {authMode === 'register' ? 'Create account' : 'Enter SkillSwap'}
-                </Text>
-              </Pressable>
-              <View style={styles.demoStrip}>
-                <Text style={styles.demoStripText}>demo@skillsswap.app / demo123</Text>
-              </View>
-            </View>
-          </LinearGradient>
-
-          <View style={[styles.surfaceCard, styles.surfaceCardPhone]}>
-            {renderPhoneSectionTitle('Live network snapshot')}
-            <View style={styles.featureList}>
-              <View style={styles.listRow}>
-                <Text style={styles.listRowTitle}>Members</Text>
-                <Text style={styles.listRowMeta}>{publicOverview?.totalMembers ?? 0}</Text>
-              </View>
-              <View style={styles.listRow}>
-                <Text style={styles.listRowTitle}>Mentors</Text>
-                <Text style={styles.listRowMeta}>{publicOverview?.mentorCount ?? 0}</Text>
-              </View>
-              <View style={styles.listRow}>
-                <Text style={styles.listRowTitle}>Explorers</Text>
-                <Text style={styles.listRowMeta}>{publicOverview?.learnerCount ?? 0}</Text>
-              </View>
-              <View style={styles.listRow}>
-                <Text style={styles.listRowTitle}>Sessions</Text>
-                <Text style={styles.listRowMeta}>{publicOverview?.sessionCount ?? 0}</Text>
-              </View>
-            </View>
+    <SafeAreaView style={styles.safe}>
+      <StatusBar style="light" />
+      <ScrollView contentContainerStyle={[styles.landingScroll, isPhone && styles.landingScrollPhone]}>
+        <View style={[styles.authScreen, isWide && styles.authScreenWide]}>
+          <View style={styles.authHeader}>
+            <Text style={styles.brandBarTitle}>SkillSwap</Text>
+            <Text style={styles.authHeaderText}>Sign in or create an account to continue.</Text>
           </View>
 
-          <View style={[styles.authCard, styles.authCardPhone]}>
-            <Text style={styles.authCardTitle}>Welcome back</Text>
-            <Text style={styles.authCardText}>
-              Sign in to continue with your sessions, saves, and messages.
-            </Text>
+          <View style={[styles.loginCard, styles.authCardCompact, isPhone && styles.loginCardPhone]}>
             <View style={styles.toggleRow}>
               <Pressable
                 style={({ pressed }) => [
@@ -618,7 +574,7 @@ export default function App() {
                 style={styles.input}
                 value={authName}
                 onChangeText={setAuthName}
-                placeholder="Your name"
+                placeholder="Name"
                 placeholderTextColor={palette.textSoft}
               />
             ) : null}
@@ -628,6 +584,7 @@ export default function App() {
               onChangeText={setAuthEmail}
               placeholder="Email"
               placeholderTextColor={palette.textSoft}
+              autoCapitalize="none"
             />
             <TextInput
               style={styles.input}
@@ -647,210 +604,16 @@ export default function App() {
             </Pressable>
             {error ? <Text style={styles.error}>{error}</Text> : null}
           </View>
-
-          <View style={styles.infoCard}>
-            <Text style={styles.infoCardTitle}>Browse categories</Text>
-            <View style={styles.tagWrap}>
-              {(publicOverview?.categories ?? []).map((item) => (
-                <View key={item} style={styles.tag}>
-                  <Text style={styles.tagText}>{item}</Text>
-                </View>
-              ))}
-            </View>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    ) : (
-    <SafeAreaView style={styles.safe}>
-      <StatusBar style="light" />
-      <ScrollView contentContainerStyle={styles.landingScroll}>
-        <LinearGradient colors={['#0d1814', '#10211a', '#153126']} style={styles.landingHero}>
-          <View style={[styles.landingHeroInner, isWide && styles.landingHeroInnerWide]}>
-            <View style={[styles.landingCopy, isPhone && styles.landingCopyPhone]}>
-              <Text style={styles.eyebrow}>PRIVATE SKILL EXCHANGE</Text>
-              <Text style={[styles.landingTitle, isPhone && styles.landingTitlePhone]}>
-                A calmer, higher-signal way to learn from people who actually do the work.
-              </Text>
-              <Text style={styles.landingBody}>
-                SkillSwap blends mentorship, peer exchange, events, messaging, and progress tracking
-                into one app-like workspace for serious learning.
-              </Text>
-              <View style={styles.landingActions}>
-                <Pressable
-                  style={({ pressed }) => [styles.heroButton, pressed && styles.pressedScale]}
-                  onPress={onAuth}
-                >
-                  <Text style={styles.heroButtonText}>
-                    {authMode === 'register' ? 'Create account' : 'Enter SkillSwap'}
-                  </Text>
-                </Pressable>
-                <View style={styles.demoStrip}>
-                  <Text style={styles.demoStripText}>demo@skillsswap.app / demo123</Text>
-                </View>
-              </View>
-            </View>
-
-            <View style={[styles.landingGlass, isPhone && styles.landingGlassPhone]}>
-              <Text style={styles.glassTitle}>Live network snapshot</Text>
-              <View style={[styles.glassGrid, isPhone && styles.glassGridPhone]}>
-                {renderStatCard(
-                  String(publicOverview?.totalMembers ?? 0),
-                  'Members',
-                  'Operators, specialists, and explorers'
-                )}
-                {renderStatCard(
-                  String(publicOverview?.mentorCount ?? 0),
-                  'Mentors',
-                  'Curated experts with open slots'
-                )}
-                {renderStatCard(
-                  String(publicOverview?.learnerCount ?? 0),
-                  'Explorers',
-                  'People actively seeking guidance'
-                )}
-                {renderStatCard(
-                  String(publicOverview?.sessionCount ?? 0),
-                  'Sessions',
-                  'Already moving through the app'
-                )}
-              </View>
-            </View>
-          </View>
-        </LinearGradient>
-
-        <View style={[styles.landingGrid, isWide && styles.landingGridWide]}>
-          <View style={[styles.landingMainColumn, isPhone && styles.landingMainColumnPhone]}>
-            <View style={styles.surfaceCard}>
-              <View style={styles.surfaceHeader}>
-                <Text style={styles.surfaceTitle}>Featured mentors and explorers</Text>
-                <Text style={styles.surfaceHint}>Real profiles served by the backend</Text>
-              </View>
-              <View style={[styles.memberGrid, isTablet && styles.memberGridTablet]}>
-                {(publicOverview?.featuredCards ?? []).map((card) => renderMemberCard(card, true))}
-              </View>
-            </View>
-
-            <View style={styles.surfaceCard}>
-              <View style={styles.surfaceHeader}>
-                <Text style={styles.surfaceTitle}>What the app includes</Text>
-                <Text style={styles.surfaceHint}>Features are already wired, not mocked</Text>
-              </View>
-              <View style={styles.featureList}>
-                <View style={styles.featureItem}>
-                  <Text style={styles.featureTitle}>Discovery that feels curated</Text>
-                  <Text style={styles.featureText}>Search by role, category, and skill with live availability and profile actions.</Text>
-                </View>
-                <View style={styles.featureItem}>
-                  <Text style={styles.featureTitle}>Sessions with follow-through</Text>
-                  <Text style={styles.featureText}>Book, update status, and export calendars without leaving the experience.</Text>
-                </View>
-                <View style={styles.featureItem}>
-                  <Text style={styles.featureTitle}>Community loops</Text>
-                  <Text style={styles.featureText}>Events, message threads, notifications, and progress all work together.</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View style={[styles.landingSideColumn, isPhone && styles.landingSideColumnPhone]}>
-            <View style={styles.authCard}>
-              <Text style={styles.authCardTitle}>Welcome back</Text>
-              <Text style={styles.authCardText}>
-                Sign in to continue with your sessions, saves, and messages.
-              </Text>
-              <View style={styles.toggleRow}>
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.modeChip,
-                    authMode === 'login' && styles.modeChipActive,
-                    pressed && styles.pressedScale,
-                  ]}
-                  onPress={() => setAuthMode('login')}
-                >
-                  <Text
-                    style={[
-                      styles.modeChipText,
-                      authMode === 'login' && styles.modeChipTextActive,
-                    ]}
-                  >
-                    Login
-                  </Text>
-                </Pressable>
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.modeChip,
-                    authMode === 'register' && styles.modeChipActive,
-                    pressed && styles.pressedScale,
-                  ]}
-                  onPress={() => setAuthMode('register')}
-                >
-                  <Text
-                    style={[
-                      styles.modeChipText,
-                      authMode === 'register' && styles.modeChipTextActive,
-                    ]}
-                  >
-                    Register
-                  </Text>
-                </Pressable>
-              </View>
-              {authMode === 'register' ? (
-                <TextInput
-                  style={styles.input}
-                  value={authName}
-                  onChangeText={setAuthName}
-                  placeholder="Your name"
-                  placeholderTextColor={palette.textSoft}
-                />
-              ) : null}
-              <TextInput
-                style={styles.input}
-                value={authEmail}
-                onChangeText={setAuthEmail}
-                placeholder="Email"
-                placeholderTextColor={palette.textSoft}
-              />
-              <TextInput
-                style={styles.input}
-                value={authPassword}
-                onChangeText={setAuthPassword}
-                placeholder="Password"
-                placeholderTextColor={palette.textSoft}
-                secureTextEntry
-              />
-              <Pressable
-                style={({ pressed }) => [styles.primaryWideButton, pressed && styles.pressedScale]}
-                onPress={onAuth}
-              >
-                <Text style={styles.primaryWideButtonText}>
-                  {authMode === 'register' ? 'Create account' : 'Continue'}
-                </Text>
-              </Pressable>
-              {error ? <Text style={styles.error}>{error}</Text> : null}
-            </View>
-
-            <View style={styles.infoCard}>
-              <Text style={styles.infoCardTitle}>Browse categories</Text>
-              <View style={styles.tagWrap}>
-                {(publicOverview?.categories ?? []).map((item) => (
-                  <View key={item} style={styles.tag}>
-                    <Text style={styles.tagText}>{item}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
-    )
   );
 
   const renderProfileCompletion = () => (
     <SafeAreaView style={styles.safe}>
       <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.landingScroll}>
-        <LinearGradient colors={['#0d1814', '#12241c']} style={styles.completionHero}>
+        <LinearGradient colors={['#050505', '#101010']} style={styles.completionHero}>
           <Text style={styles.eyebrow}>MEMBER SETUP</Text>
           <Text style={styles.completionTitle}>Complete your profile to unlock better matches.</Text>
           <Text style={styles.completionBody}>
@@ -1067,7 +830,7 @@ export default function App() {
     ) : (
     <View style={styles.pageStack}>
       <LinearGradient
-        colors={['#0d1814', '#10211a', '#153126']}
+        colors={['#050505', '#101010', '#191919']}
         style={[styles.heroPanel, isPhone && styles.heroPanelPhone]}
       >
         <View style={[styles.heroPanelInner, isWide && styles.heroPanelInnerWide]}>
@@ -1304,16 +1067,20 @@ export default function App() {
     ) : (
     <View style={styles.pageStack}>
       <LinearGradient
-        colors={['#0d1814', '#12241c']}
+        colors={['#050505', '#101010']}
         style={[styles.sectionHero, isPhone && styles.sectionHeroPhone]}
       >
-        <Text style={styles.eyebrow}>{pageMeta.Sessions.eyebrow}</Text>
-        <Text style={[styles.sectionHeroTitle, isPhone && styles.sectionHeroTitlePhone]}>
-          Keep every booked session in one clear flow.
-        </Text>
-        <Text style={styles.sectionHeroText}>
-          Move from upcoming to live to complete without losing context.
-        </Text>
+        <View style={[styles.sectionHeroInner, isWide && styles.sectionHeroInnerWide]}>
+          <View style={styles.sectionHeroCopy}>
+            <Text style={styles.eyebrow}>{pageMeta.Sessions.eyebrow}</Text>
+            <Text style={[styles.sectionHeroTitle, isPhone && styles.sectionHeroTitlePhone]}>
+              Keep every booked session in one clear flow.
+            </Text>
+            <Text style={styles.sectionHeroText}>
+              Move from upcoming to live to complete without losing context.
+            </Text>
+          </View>
+        </View>
       </LinearGradient>
 
       <View style={[styles.summaryRow, isPhone && styles.summaryRowPhone]}>
@@ -1532,16 +1299,20 @@ export default function App() {
     ) : (
     <View style={styles.pageStack}>
       <LinearGradient
-        colors={['#0d1814', '#12241c']}
+        colors={['#050505', '#101010']}
         style={[styles.sectionHero, isPhone && styles.sectionHeroPhone]}
       >
-        <Text style={styles.eyebrow}>{pageMeta.Community.eyebrow}</Text>
-        <Text style={[styles.sectionHeroTitle, isPhone && styles.sectionHeroTitlePhone]}>
-          Keep events, inbox, and updates in one lightweight space.
-        </Text>
-        <Text style={styles.sectionHeroText}>
-          Join rooms, reply quickly, and stay on top of activity.
-        </Text>
+        <View style={[styles.sectionHeroInner, isWide && styles.sectionHeroInnerWide]}>
+          <View style={styles.sectionHeroCopy}>
+            <Text style={styles.eyebrow}>{pageMeta.Community.eyebrow}</Text>
+            <Text style={[styles.sectionHeroTitle, isPhone && styles.sectionHeroTitlePhone]}>
+              Keep events, inbox, and updates in one lightweight space.
+            </Text>
+            <Text style={styles.sectionHeroText}>
+              Join rooms, reply quickly, and stay on top of activity.
+            </Text>
+          </View>
+        </View>
       </LinearGradient>
 
       <View style={[styles.contentColumns, isWide && styles.contentColumnsWide]}>
@@ -1706,16 +1477,20 @@ export default function App() {
     ) : (
     <View style={styles.pageStack}>
       <LinearGradient
-        colors={['#0d1814', '#12241c']}
+        colors={['#050505', '#101010']}
         style={[styles.sectionHero, isPhone && styles.sectionHeroPhone]}
       >
-        <Text style={styles.eyebrow}>{pageMeta.Progress.eyebrow}</Text>
-        <Text style={[styles.sectionHeroTitle, isPhone && styles.sectionHeroTitlePhone]}>
-          Keep momentum visible without clutter.
-        </Text>
-        <Text style={styles.sectionHeroText}>
-          Track setup, sessions, and participation in a simple progress view.
-        </Text>
+        <View style={[styles.sectionHeroInner, isWide && styles.sectionHeroInnerWide]}>
+          <View style={styles.sectionHeroCopy}>
+            <Text style={styles.eyebrow}>{pageMeta.Progress.eyebrow}</Text>
+            <Text style={[styles.sectionHeroTitle, isPhone && styles.sectionHeroTitlePhone]}>
+              Keep momentum visible without clutter.
+            </Text>
+            <Text style={styles.sectionHeroText}>
+              Track setup, sessions, and participation in a simple progress view.
+            </Text>
+          </View>
+        </View>
       </LinearGradient>
 
       <View style={[styles.summaryRow, isPhone && styles.summaryRowPhone]}>
@@ -1836,16 +1611,20 @@ export default function App() {
     ) : (
     <View style={styles.pageStack}>
       <LinearGradient
-        colors={['#0d1814', '#12241c']}
+        colors={['#050505', '#101010']}
         style={[styles.sectionHero, isPhone && styles.sectionHeroPhone]}
       >
-        <Text style={styles.eyebrow}>{pageMeta.Profile.eyebrow}</Text>
-        <Text style={[styles.sectionHeroTitle, isPhone && styles.sectionHeroTitlePhone]}>
-          Keep your profile polished and easy to scan.
-        </Text>
-        <Text style={styles.sectionHeroText}>
-          Your skills, goals, and details stay neatly organized here.
-        </Text>
+        <View style={[styles.sectionHeroInner, isWide && styles.sectionHeroInnerWide]}>
+          <View style={styles.sectionHeroCopy}>
+            <Text style={styles.eyebrow}>{pageMeta.Profile.eyebrow}</Text>
+            <Text style={[styles.sectionHeroTitle, isPhone && styles.sectionHeroTitlePhone]}>
+              Keep your profile polished and easy to scan.
+            </Text>
+            <Text style={styles.sectionHeroText}>
+              Your skills, goals, and details stay neatly organized here.
+            </Text>
+          </View>
+        </View>
       </LinearGradient>
 
       <View style={[styles.contentColumns, isWide && styles.contentColumnsWide]}>
@@ -2178,7 +1957,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 280,
     borderRadius: 999,
-    backgroundColor: 'rgba(56, 103, 84, 0.22)',
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
   },
   glowTwo: {
     position: 'absolute',
@@ -2187,7 +1966,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     borderRadius: 999,
-    backgroundColor: 'rgba(25, 56, 44, 0.26)',
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
   },
   center: {
     flex: 1,
@@ -2207,7 +1986,7 @@ const styles = StyleSheet.create({
     paddingBottom: 22,
     borderRightWidth: 1,
     borderRightColor: palette.line,
-    backgroundColor: 'rgba(8, 17, 13, 0.84)',
+    backgroundColor: 'rgba(8, 8, 8, 0.9)',
     gap: 18,
   },
   sidebarBrand: {
@@ -2302,13 +2081,15 @@ const styles = StyleSheet.create({
   topBarEyebrow: {
     color: palette.textSoft,
     fontSize: 11,
-    letterSpacing: 0.3,
+    letterSpacing: 1.2,
     fontWeight: '700',
+    textTransform: 'uppercase',
   },
   topBarTitle: {
     color: palette.text,
     fontSize: 28,
     fontWeight: '800',
+    letterSpacing: -0.8,
   },
   topBarTitlePhone: {
     fontSize: 24,
@@ -2349,18 +2130,19 @@ const styles = StyleSheet.create({
   eyebrow: {
     color: palette.accent,
     fontSize: 11,
-    letterSpacing: 0.4,
+    letterSpacing: 1.6,
     fontWeight: '700',
+    textTransform: 'uppercase',
   },
   landingHero: {
     borderRadius: 32,
-    padding: 24,
+    padding: 28,
     borderWidth: 1,
     borderColor: palette.line,
     shadowColor: palette.shadow,
     shadowOpacity: 1,
-    shadowRadius: 24,
-    shadowOffset: { width: 0, height: 14 },
+    shadowRadius: 28,
+    shadowOffset: { width: 0, height: 18 },
     elevation: 3,
   },
   landingHeroPhone: {
@@ -2370,9 +2152,19 @@ const styles = StyleSheet.create({
   landingHeroInner: {
     gap: 18,
   },
+  landingHeroInnerPhone: {
+    alignItems: 'stretch',
+  },
   landingHeroInnerWide: {
     flexDirection: 'row',
     alignItems: 'stretch',
+  },
+  landingHeroAside: {
+    flex: 0.95,
+    gap: 16,
+  },
+  landingHeroAsidePhone: {
+    flex: 0,
   },
   landingCopy: {
     flex: 1.1,
@@ -2383,9 +2175,10 @@ const styles = StyleSheet.create({
   },
   landingTitle: {
     color: palette.text,
-    fontSize: 36,
-    lineHeight: 42,
+    fontSize: 40,
+    lineHeight: 46,
     fontWeight: '800',
+    letterSpacing: -1.3,
     maxWidth: 660,
   },
   landingTitlePhone: {
@@ -2395,8 +2188,8 @@ const styles = StyleSheet.create({
   landingBody: {
     color: palette.textMuted,
     fontSize: 15,
-    lineHeight: 24,
-    maxWidth: 620,
+    lineHeight: 25,
+    maxWidth: 580,
   },
   landingActions: {
     gap: 12,
@@ -2406,8 +2199,10 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     backgroundColor: palette.accent,
     borderRadius: 999,
-    paddingHorizontal: 18,
-    paddingVertical: 13,
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+    borderWidth: 1,
+    borderColor: '#ffffff',
     shadowColor: 'rgba(0, 0, 0, 0.32)',
     shadowOpacity: 1,
     shadowRadius: 16,
@@ -2415,9 +2210,10 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   heroButtonText: {
-    color: palette.text,
+    color: '#050505',
     fontSize: 14,
     fontWeight: '800',
+    letterSpacing: 0.2,
   },
   demoStrip: {
     alignSelf: 'flex-start',
@@ -2437,7 +2233,7 @@ const styles = StyleSheet.create({
     flex: 0.9,
     borderRadius: 28,
     padding: 18,
-    backgroundColor: 'rgba(13, 24, 19, 0.88)',
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
     borderWidth: 1,
     borderColor: palette.line,
     gap: 14,
@@ -2445,6 +2241,41 @@ const styles = StyleSheet.create({
   landingGlassPhone: {
     flex: 0,
     width: '100%',
+  },
+  heroArtwork: {
+    position: 'relative',
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+    backgroundColor: '#0b0b0b',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heroArtworkLanding: {
+    minHeight: 220,
+    borderRadius: 28,
+    width: '100%',
+  },
+  heroArtworkPanel: {
+    width: 220,
+    minHeight: 168,
+    borderRadius: 26,
+    flexShrink: 0,
+  },
+  heroArtworkSection: {
+    width: 180,
+    minHeight: 140,
+    borderRadius: 24,
+    flexShrink: 0,
+  },
+  heroPhotoArt: {
+    ...StyleSheet.absoluteFillObject,
+    width: undefined,
+    height: undefined,
+  },
+  heroPhotoOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.22)',
   },
   glassTitle: {
     color: palette.text,
@@ -2463,9 +2294,9 @@ const styles = StyleSheet.create({
   statCard: {
     flexGrow: 1,
     minWidth: 130,
-    borderRadius: 22,
+    borderRadius: 24,
     padding: 16,
-    backgroundColor: palette.surface,
+    backgroundColor: palette.surfaceMuted,
     borderWidth: 1,
     borderColor: palette.line,
     gap: 4,
@@ -2481,11 +2312,14 @@ const styles = StyleSheet.create({
     color: palette.text,
     fontSize: 26,
     fontWeight: '800',
+    letterSpacing: -0.6,
   },
   statLabel: {
     color: palette.textMuted,
     fontSize: 12,
     fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: 1.1,
   },
   statDetail: {
     color: palette.textSoft,
@@ -2498,6 +2332,256 @@ const styles = StyleSheet.create({
   landingGridWide: {
     flexDirection: 'row',
     alignItems: 'flex-start',
+  },
+  brandBar: {
+    gap: 4,
+    marginBottom: 2,
+  },
+  brandBarTitle: {
+    color: palette.text,
+    fontSize: 24,
+    fontWeight: '800',
+    letterSpacing: -0.7,
+  },
+  brandBarText: {
+    color: palette.textMuted,
+    fontSize: 13,
+    lineHeight: 19,
+  },
+  authScreen: {
+    minHeight: '100%',
+    justifyContent: 'center',
+    gap: 18,
+    paddingTop: 24,
+    paddingBottom: 24,
+  },
+  authScreenWide: {
+    alignItems: 'center',
+  },
+  authHeader: {
+    alignItems: 'center',
+    gap: 6,
+  },
+  authHeaderText: {
+    color: palette.textMuted,
+    fontSize: 14,
+    lineHeight: 21,
+    textAlign: 'center',
+  },
+  authCardCompact: {
+    width: '100%',
+  },
+  heroSplit: {
+    gap: 18,
+  },
+  heroSplitWide: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+  },
+  heroContentCard: {
+    flex: 1,
+    backgroundColor: palette.surface,
+    borderRadius: 30,
+    padding: 24,
+    borderWidth: 1,
+    borderColor: palette.line,
+    gap: 16,
+    shadowColor: palette.shadow,
+    shadowOpacity: 1,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 14 },
+    elevation: 2,
+  },
+  heroContentCardPhone: {
+    borderRadius: 24,
+    padding: 18,
+  },
+  heroMediaCard: {
+    flex: 1.05,
+    minHeight: 360,
+    borderRadius: 30,
+    overflow: 'hidden',
+    position: 'relative',
+    borderWidth: 1,
+    borderColor: palette.line,
+    backgroundColor: palette.surface,
+  },
+  heroMediaCardPhone: {
+    minHeight: 280,
+    borderRadius: 24,
+  },
+  heroMediaImage: {
+    ...StyleSheet.absoluteFillObject,
+    width: undefined,
+    height: undefined,
+  },
+  heroMediaOverlay: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  heroMediaCaption: {
+    position: 'absolute',
+    left: 24,
+    right: 24,
+    bottom: 24,
+    gap: 8,
+  },
+  heroMediaTitle: {
+    color: '#ffffff',
+    fontSize: 28,
+    lineHeight: 32,
+    fontWeight: '800',
+    letterSpacing: -0.8,
+    maxWidth: 380,
+  },
+  heroMediaText: {
+    color: 'rgba(255,255,255,0.9)',
+    fontSize: 14,
+    lineHeight: 21,
+    maxWidth: 360,
+  },
+  miniFeatureGrid: {
+    gap: 14,
+  },
+  miniFeatureGridWide: {
+    flexDirection: 'row',
+  },
+  miniFeatureCard: {
+    flex: 1,
+    backgroundColor: palette.surfaceAlt,
+    borderRadius: 24,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: palette.line,
+    gap: 6,
+  },
+  previewStrip: {
+    gap: 18,
+  },
+  previewStripWide: {
+    flexDirection: 'row',
+  },
+  previewTextCard: {
+    flex: 1,
+    minHeight: 180,
+    borderRadius: 24,
+    padding: 20,
+    backgroundColor: palette.surfaceAlt,
+    borderWidth: 1,
+    borderColor: palette.line,
+    gap: 8,
+    justifyContent: 'flex-end',
+  },
+  previewImageCard: {
+    flex: 1,
+    minHeight: 280,
+    borderRadius: 28,
+    overflow: 'hidden',
+    backgroundColor: palette.surface,
+    borderWidth: 1,
+    borderColor: palette.line,
+    position: 'relative',
+  },
+  previewImage: {
+    ...StyleSheet.absoluteFillObject,
+    width: undefined,
+    height: undefined,
+  },
+  previewCopy: {
+    position: 'absolute',
+    left: 20,
+    right: 20,
+    bottom: 20,
+    padding: 16,
+    borderRadius: 20,
+    backgroundColor: 'rgba(7, 7, 7, 0.72)',
+    gap: 4,
+  },
+  loginShell: {
+    gap: 18,
+  },
+  loginShellWide: {
+    flexDirection: 'row',
+    minHeight: 720,
+    alignItems: 'stretch',
+  },
+  loginVisual: {
+    minHeight: 280,
+    borderRadius: 30,
+    overflow: 'hidden',
+    position: 'relative',
+    borderWidth: 1,
+    borderColor: palette.line,
+    backgroundColor: palette.surface,
+    flex: 1.15,
+  },
+  loginVisualPhone: {
+    minHeight: 240,
+    borderRadius: 24,
+  },
+  loginVisualImage: {
+    ...StyleSheet.absoluteFillObject,
+    width: undefined,
+    height: undefined,
+  },
+  loginVisualOverlay: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  loginVisualCopy: {
+    position: 'absolute',
+    left: 24,
+    right: 24,
+    bottom: 24,
+    gap: 8,
+  },
+  loginVisualBrand: {
+    color: '#ffffff',
+    fontSize: 28,
+    fontWeight: '800',
+    letterSpacing: -0.8,
+  },
+  loginVisualText: {
+    color: 'rgba(255,255,255,0.92)',
+    fontSize: 14,
+    lineHeight: 21,
+    maxWidth: 320,
+  },
+  loginCard: {
+    width: '100%',
+    maxWidth: 460,
+    alignSelf: 'center',
+    backgroundColor: palette.surface,
+    borderRadius: 30,
+    padding: 28,
+    gap: 14,
+    borderWidth: 1,
+    borderColor: palette.line,
+    shadowColor: palette.shadow,
+    shadowOpacity: 1,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 14 },
+    elevation: 2,
+  },
+  loginCardPhone: {
+    maxWidth: undefined,
+    padding: 20,
+    borderRadius: 24,
+  },
+  loginCardTitle: {
+    color: palette.text,
+    fontSize: 28,
+    fontWeight: '800',
+    letterSpacing: -0.8,
+  },
+  loginCardText: {
+    color: palette.textMuted,
+    fontSize: 14,
+    lineHeight: 21,
+  },
+  loginDemoText: {
+    color: palette.textSoft,
+    fontSize: 12,
+    lineHeight: 18,
+    marginTop: 2,
   },
   landingMainColumn: {
     flex: 1.2,
@@ -2522,8 +2606,8 @@ const styles = StyleSheet.create({
     gap: 16,
     shadowColor: palette.shadow,
     shadowOpacity: 1,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 10 },
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 14 },
     elevation: 2,
   },
   surfaceCardPhone: {
@@ -2537,6 +2621,7 @@ const styles = StyleSheet.create({
     color: palette.text,
     fontSize: 22,
     fontWeight: '800',
+    letterSpacing: -0.5,
   },
   surfaceHint: {
     color: palette.textMuted,
@@ -2571,8 +2656,8 @@ const styles = StyleSheet.create({
     borderColor: palette.line,
     shadowColor: palette.shadow,
     shadowOpacity: 1,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 10 },
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 14 },
     elevation: 2,
   },
   authCardPhone: {
@@ -2616,8 +2701,8 @@ const styles = StyleSheet.create({
     borderColor: palette.line,
   },
   modeChipActive: {
-    backgroundColor: palette.accentSoft,
-    borderColor: palette.lineStrong,
+    backgroundColor: '#f2f2f2',
+    borderColor: '#f2f2f2',
   },
   modeChipText: {
     color: palette.textMuted,
@@ -2625,7 +2710,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   modeChipTextActive: {
-    color: palette.accentStrong,
+    color: '#050505',
   },
   input: {
     backgroundColor: palette.surfaceMuted,
@@ -2636,6 +2721,7 @@ const styles = StyleSheet.create({
     borderColor: palette.line,
     color: palette.text,
     fontSize: 14,
+    shadowColor: 'transparent',
   },
   multilineInput: {
     minHeight: 110,
@@ -2647,14 +2733,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 15,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ffffff',
   },
   primaryWideButtonText: {
-    color: palette.text,
+    color: '#050505',
     fontSize: 14,
     fontWeight: '800',
   },
   error: {
-    color: '#f2a79a',
+    color: '#f1b4b4',
     fontSize: 13,
     fontWeight: '700',
   },
@@ -2685,7 +2773,7 @@ const styles = StyleSheet.create({
   },
   heroPanel: {
     borderRadius: 30,
-    padding: 22,
+    padding: 24,
     borderWidth: 1,
     borderColor: palette.line,
   },
@@ -2699,7 +2787,7 @@ const styles = StyleSheet.create({
   heroPanelInnerWide: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'stretch',
   },
   heroPanelCopy: {
     flex: 1,
@@ -2707,9 +2795,10 @@ const styles = StyleSheet.create({
   },
   pageHeroTitle: {
     color: palette.text,
-    fontSize: 30,
-    lineHeight: 36,
+    fontSize: 34,
+    lineHeight: 40,
     fontWeight: '800',
+    letterSpacing: -1,
     maxWidth: 680,
   },
   pageHeroTitlePhone: {
@@ -2741,7 +2830,7 @@ const styles = StyleSheet.create({
   quickAction: {
     flexGrow: 1,
     minWidth: 180,
-    backgroundColor: palette.surface,
+    backgroundColor: palette.surfaceMuted,
     borderRadius: 22,
     padding: 16,
     borderWidth: 1,
@@ -2764,11 +2853,14 @@ const styles = StyleSheet.create({
     color: palette.textSoft,
     fontSize: 12,
     fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
   quickActionValue: {
     color: palette.text,
     fontSize: 16,
     fontWeight: '800',
+    letterSpacing: -0.3,
   },
   contentColumns: {
     gap: 18,
@@ -2801,8 +2893,8 @@ const styles = StyleSheet.create({
   memberCard: {
     flexGrow: 1,
     flexBasis: 300,
-    backgroundColor: palette.surface,
-    borderRadius: 24,
+    backgroundColor: palette.surfaceMuted,
+    borderRadius: 26,
     padding: 18,
     borderWidth: 1,
     borderColor: palette.line,
@@ -2819,8 +2911,8 @@ const styles = StyleSheet.create({
     flexBasis: 240,
   },
   mobileMemberCard: {
-    backgroundColor: palette.surface,
-    borderRadius: 24,
+    backgroundColor: palette.surfaceMuted,
+    borderRadius: 26,
     padding: 18,
     borderWidth: 1,
     borderColor: palette.line,
@@ -2830,16 +2922,16 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     paddingHorizontal: 10,
     paddingVertical: 6,
-    backgroundColor: palette.accentSoft,
+    backgroundColor: '#f2f2f2',
   },
   memberBadgeText: {
-    color: palette.accentStrong,
+    color: '#050505',
     fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 0.7,
+    letterSpacing: 1.1,
   },
   memberRating: {
-    color: palette.accentStrong,
+    color: '#f5f5f5',
     fontSize: 13,
     fontWeight: '800',
   },
@@ -2854,7 +2946,7 @@ const styles = StyleSheet.create({
     lineHeight: 19,
   },
   memberSkill: {
-    color: palette.accentStrong,
+    color: '#efefef',
     fontSize: 14,
     fontWeight: '800',
   },
@@ -2913,7 +3005,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   slotChipTextActive: {
-    color: palette.text,
+    color: '#050505',
   },
   actionRow: {
     flexDirection: 'row',
@@ -2935,12 +3027,16 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     paddingHorizontal: 16,
     paddingVertical: 12,
+    borderWidth: 1,
+    borderColor: '#ffffff',
   },
   mobilePrimaryButton: {
     backgroundColor: palette.accent,
     borderRadius: 16,
     paddingHorizontal: 18,
     paddingVertical: 12,
+    borderWidth: 1,
+    borderColor: '#ffffff',
   },
   mobileSecondaryButton: {
     backgroundColor: palette.surfaceAlt,
@@ -2959,7 +3055,7 @@ const styles = StyleSheet.create({
     backgroundColor: palette.surface,
   },
   primaryButtonText: {
-    color: palette.text,
+    color: '#050505',
     fontSize: 13,
     fontWeight: '800',
   },
@@ -2985,7 +3081,7 @@ const styles = StyleSheet.create({
     backgroundColor: palette.surface,
   },
   ghostButtonText: {
-    color: palette.accentStrong,
+    color: palette.text,
     fontSize: 13,
     fontWeight: '800',
   },
@@ -3016,8 +3112,8 @@ const styles = StyleSheet.create({
     borderColor: palette.line,
   },
   filterChipActive: {
-    backgroundColor: palette.accentSoft,
-    borderColor: palette.lineStrong,
+    backgroundColor: '#f2f2f2',
+    borderColor: '#f2f2f2',
   },
   filterChipText: {
     color: palette.textMuted,
@@ -3025,7 +3121,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   filterChipTextActive: {
-    color: palette.accentStrong,
+    color: '#050505',
   },
   darkCard: {
     backgroundColor: palette.surfaceAlt,
@@ -3054,13 +3150,13 @@ const styles = StyleSheet.create({
     height: 12,
     borderRadius: 999,
     overflow: 'hidden',
-    backgroundColor: '#0d1a15',
+    backgroundColor: '#121212',
   },
   mixMentor: {
-    backgroundColor: '#4f7c68',
+    backgroundColor: '#f2f2f2',
   },
   mixLearner: {
-    backgroundColor: '#365a4a',
+    backgroundColor: '#7a7a7a',
   },
   listRow: {
     flexDirection: 'row',
@@ -3082,7 +3178,7 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   listRowMeta: {
-    color: palette.accentStrong,
+    color: '#eaeaea',
     fontSize: 12,
     fontWeight: '800',
   },
@@ -3106,9 +3202,21 @@ const styles = StyleSheet.create({
   },
   sectionHero: {
     borderRadius: 30,
-    padding: 22,
+    padding: 24,
     borderWidth: 1,
     borderColor: palette.line,
+    gap: 10,
+  },
+  sectionHeroInner: {
+    gap: 16,
+  },
+  sectionHeroInnerWide: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  sectionHeroCopy: {
+    flex: 1,
     gap: 10,
   },
   sectionHeroPhone: {
@@ -3118,9 +3226,10 @@ const styles = StyleSheet.create({
   },
   sectionHeroTitle: {
     color: palette.text,
-    fontSize: 29,
-    lineHeight: 35,
+    fontSize: 32,
+    lineHeight: 38,
     fontWeight: '800',
+    letterSpacing: -0.8,
     maxWidth: 700,
   },
   sectionHeroTitlePhone: {
@@ -3142,8 +3251,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   sessionCard: {
-    backgroundColor: palette.surface,
-    borderRadius: 24,
+    backgroundColor: palette.surfaceMuted,
+    borderRadius: 26,
     padding: 18,
     borderWidth: 1,
     borderColor: palette.line,
@@ -3177,11 +3286,11 @@ const styles = StyleSheet.create({
     color: palette.accentStrong,
     fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 0.4,
+    letterSpacing: 1,
   },
   eventCard: {
-    backgroundColor: palette.surface,
-    borderRadius: 24,
+    backgroundColor: palette.surfaceMuted,
+    borderRadius: 26,
     padding: 18,
     borderWidth: 1,
     borderColor: palette.line,
@@ -3205,7 +3314,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   eventMeta: {
-    color: palette.accentStrong,
+    color: '#f1f1f1',
     fontSize: 18,
     fontWeight: '800',
   },
@@ -3219,7 +3328,7 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 999,
-    backgroundColor: palette.accent,
+    backgroundColor: '#f0f0f0',
     marginTop: 6,
   },
   notificationBody: {
@@ -3237,7 +3346,7 @@ const styles = StyleSheet.create({
     lineHeight: 19,
   },
   threadCard: {
-    backgroundColor: palette.surface,
+    backgroundColor: palette.surfaceMuted,
     borderRadius: 22,
     padding: 16,
     borderWidth: 1,
@@ -3270,13 +3379,13 @@ const styles = StyleSheet.create({
   roadmapTrack: {
     height: 12,
     borderRadius: 999,
-    backgroundColor: '#13211b',
+    backgroundColor: '#151515',
     overflow: 'hidden',
     marginBottom: 8,
   },
   roadmapFill: {
     height: '100%',
-    backgroundColor: palette.accent,
+    backgroundColor: '#f0f0f0',
   },
   roadmapItem: {
     flexDirection: 'row',
@@ -3331,7 +3440,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   bottomDock: {
-    backgroundColor: 'rgba(9, 17, 14, 0.96)',
+    backgroundColor: 'rgba(10, 10, 10, 0.96)',
     borderRadius: 24,
     paddingHorizontal: 8,
     paddingVertical: 8,
@@ -3374,7 +3483,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   dockItemActive: {
-    backgroundColor: palette.accentSoft,
+    backgroundColor: '#1e1e1e',
   },
   dockText: {
     color: palette.textSoft,

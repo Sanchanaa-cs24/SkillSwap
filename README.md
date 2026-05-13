@@ -52,6 +52,12 @@ Run the Expo app in another terminal:
 npm start
 ```
 
+If you want more than one phone to connect reliably, prefer tunnel mode:
+
+```bash
+npm run start:tunnel
+```
+
 Backend URL:
 - `http://localhost:4000`
 
@@ -118,6 +124,17 @@ npm run start:dev-client
 
 Then open the installed SkillSwap development build on the Android phone.
 
+If you want multiple phones to connect to the same running dev server, use:
+
+```bash
+npm run start:dev-client:tunnel
+```
+
+Notes:
+- Each phone must have the SkillSwap development build installed already.
+- Tunnel mode is the safest option when phones are on different Wi‑Fi setups or local LAN discovery is unreliable.
+- If you scan the QR in Expo Go instead of the installed development build, behavior may differ because this project is configured for `expo-dev-client`.
+
 ## iOS Notes
 
 - Expo Go was not reliable for this project because of SDK compatibility on the test device.
@@ -176,3 +193,4 @@ npm run build:web
 - If the backend is unreachable, make sure `npm run backend` is still running.
 - If Android install is blocked, confirm the EAS build finished successfully and use the generated build page link.
 - If iOS simulator commands fail on macOS, full Xcode is not active yet. Run Xcode once and switch the active developer directory if needed.
+- If only one phone can connect, start Expo with `npm run start:tunnel` or `npm run start:dev-client:tunnel` instead of plain `npm start`.
