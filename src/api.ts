@@ -1,4 +1,5 @@
 import type {
+  AdminDashboard,
   AppNotification,
   AuthResponse,
   CommunityEvent,
@@ -6,7 +7,9 @@ import type {
   LearningPlan,
   MessageThread,
   Messages,
+  PortfolioAsset,
   PublicOverview,
+  RoomDiscussionMessage,
   Session,
   User,
 } from './types';
@@ -15,13 +18,57 @@ import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
 const PRODUCTION_API_BASE = 'https://skills-swap-kappa.vercel.app/api';
+const constantsWithHost = Constants as typeof Constants & {
+  expoConfig?: {
+    hostUri?: string;
+    extra?: {
+      apiBase?: string;
+    };
+  };
+  expoGoConfig?: {
+    debuggerHost?: string;
+    hostUri?: string;
+  };
+  manifest?: {
+    debuggerHost?: string;
+  };
+  manifest2?: {
+    extra?: {
+      expoClient?: {
+        hostUri?: string;
+      };
+    };
+  };
+};
 const configuredApiBase =
   process.env.EXPO_PUBLIC_API_BASE ||
   Constants.expoConfig?.extra?.apiBase ||
   '';
-const isWeb = Platform.OS === 'web';
-const API_BASE = isWeb ? '/api' : configuredApiBase || PRODUCTION_API_BASE;
+const runtimeLocation =
+  typeof window !== 'undefined' && window?.location ? window.location : null;
+const runtimeHost =
+  runtimeLocation?.hostname || '';
+const devHostCandidate =
+  constantsWithHost.expoConfig?.hostUri ||
+  constantsWithHost.expoGoConfig?.hostUri ||
+  constantsWithHost.expoGoConfig?.debuggerHost ||
+  constantsWithHost.manifest?.debuggerHost ||
+  constantsWithHost.manifest2?.extra?.expoClient?.hostUri ||
+  '';
+const devHost = devHostCandidate.split(':')[0];
+const localApiBase =
+  runtimeHost === '127.0.0.1' || runtimeHost === 'localhost'
+    ? 'http://localhost:4000/api'
+    : '';
+const shouldPreferDevBackend =
+  Platform.OS !== 'web' &&
+  Boolean(devHost) &&
+  (!configuredApiBase || configuredApiBase === PRODUCTION_API_BASE);
+const devApiBase = shouldPreferDevBackend ? `http://${devHost}:4000/api` : '';
+const API_BASE = localApiBase || devApiBase || configuredApiBase || PRODUCTION_API_BASE;
 let authToken = '';
+
+export const getApiBase = () => API_BASE;
 
 export const setAuthToken = (token: string) => {
   authToken = token;
@@ -83,10 +130,28 @@ export const api = {
   toggleFavorite: (id: string) =>
     request<DiscoveryCard>(`/discovery/${id}/favorite`, { method: 'POST' }),
   sessions: () => request<Session[]>('/sessions'),
-  bookSession: (cardId: string, time: string) =>
+  bookSession: (
+    cardId: string,
+    time: string,
+    details?: {
+      format?: Session['format'];
+      goal?: string;
+      note?: string;
+    }
+  ) =>
     request<Session>('/sessions/book', {
       method: 'POST',
-      body: JSON.stringify({ cardId, time }),
+      body: JSON.stringify({ cardId, time, ...details }),
+    }),
+  updateSession: (
+    id: string,
+    payload: Partial<
+      Pick<Session, 'status' | 'time' | 'format' | 'goal' | 'note' | 'reminderSet'>
+    >
+  ) =>
+    request<Session>(`/sessions/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
     }),
   updateSessionStatus: (id: string, status: Session['status']) =>
     request<Session>(`/sessions/${id}/status`, {
@@ -96,6 +161,8 @@ export const api = {
   events: () => request<CommunityEvent[]>('/events'),
   joinEvent: (id: string) =>
     request<CommunityEvent>(`/events/${id}/join`, { method: 'POST' }),
+  toggleEventReminder: (id: string) =>
+    request<CommunityEvent>(`/events/${id}/reminder`, { method: 'POST' }),
   learningPlan: () => request<LearningPlan>('/learning-plan'),
   saveLearningPlan: (payload: Partial<LearningPlan>) =>
     request<LearningPlan>('/learning-plan', {
@@ -111,6 +178,43 @@ export const api = {
   messageThreads: () => request<MessageThread[]>('/messages/threads'),
   replyThread: (id: string, message: string) =>
     request<MessageThread>(`/messages/threads/${id}/reply`, {
+      method: 'POST',
+      body: JSON.stringify({ message }),
+    }),
+  adminDashboard: () => request<AdminDashboard>('/admin/dashboard'),
+  featureMentor: (id: string, featured: boolean) =>
+    request<DiscoveryCard>(`/admin/mentors/${id}/feature`, {
+      method: 'POST',
+      body: JSON.stringify({ featured }),
+    }),
+  resolveReport: (id: string) =>
+    request<AdminDashboard>(`/admin/reports/${id}/resolve`, {
+      method: 'POST',
+    }),
+  updateAdminEvent: (
+    id: string,
+    payload: {
+      recap?: string;
+    }
+  ) =>
+    request<CommunityEvent>(`/admin/events/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+    }),
+  portfolioAssets: () => request<PortfolioAsset[]>('/portfolio/assets'),
+  addPortfolioAsset: (payload: Pick<PortfolioAsset, 'title' | 'url' | 'kind'>) =>
+    request<PortfolioAsset>('/portfolio/assets', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+  removePortfolioAsset: (id: string) =>
+    request<{ ok: boolean }>(`/portfolio/assets/${id}`, {
+      method: 'DELETE',
+    }),
+  eventDiscussion: (id: string) =>
+    request<RoomDiscussionMessage[]>(`/events/${id}/discussion`),
+  postEventDiscussion: (id: string, message: string) =>
+    request<RoomDiscussionMessage>(`/events/${id}/discussion`, {
       method: 'POST',
       body: JSON.stringify({ message }),
     }),
